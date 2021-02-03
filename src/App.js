@@ -10,7 +10,7 @@ import Modal from "react-modal";
 
 import routes from "./routes/index";
 import { useDispatch, useSelector } from "react-redux";
-import { checkIfLoggedIn } from "common/requests/auth";
+import { checkIfLoggedIn, logout } from "common/requests/auth";
 import { ACTIONS } from "store/auth/actions";
 
 //TODO implement storage of auth data - see https://github.com/upstatement/react-router-guards
@@ -37,44 +37,6 @@ const App = () => {
     return (
       <Router>
         <div className="w-full">
-          <nav
-            aria-label="primary"
-            class="relative z-20  flex-grow  pb-0 flex flex-row"
-          >
-            <div class="relative group">
-              <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
-                <span>Catalogs</span>
-              </button>
-              <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
-                <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
-                  <div class="grid grid-cols-1 gap-4">
-                    <div>
-                      <Link to={"/products"}>Products (read-only)</Link>
-                    </div>
-                    <div>
-                      <Link to={"/products"}>Products</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="relative group">
-              <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
-                <span>Second Dropdown</span>
-              </button>
-              <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
-                <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
-                  <div class="grid grid-cols-1 gap-4">
-                    <div>
-                      <Link to={"/products"}>Products</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-
           <div className="w-full">
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
@@ -109,21 +71,89 @@ const App = () => {
 const PrivateRoute = ({ children, ...rest }) => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        loggedIn ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
+    <>
+      <nav
+        aria-label="primary"
+        class="relative z-20  flex-grow  pb-0 flex flex-row"
+      >
+        <div class="relative group">
+          <button class="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat">
+            <Link to={"/"}>Dashboard</Link>
+          </button>
+        </div>
+        <div class="relative group">
+          <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
+            <span>Catalogs</span>
+          </button>
+          <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
+            <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
+              <div class="grid grid-cols-1 gap-4">
+                <div>
+                  <Link to={"/products"}>Products (read-only)</Link>
+                </div>
+                <div>
+                  <Link to={"/products"}>Products</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
+            <span>Second Dropdown</span>
+          </button>
+          <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
+            <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
+              <div class="grid grid-cols-1 gap-4">
+                <div>
+                  <Link to={"/products"}>Products</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Logout />
+      </nav>
+
+      <Route
+        {...rest}
+        render={({ location }) =>
+          loggedIn ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location },
+              }}
+            />
+          )
+        }
+      />
+    </>
+  );
+};
+
+export const Logout = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = async () => {
+    await logout();
+    //TODO check if successfull
+    dispatch({ type: ACTIONS.LOGOUT_SUCCESS });
+  };
+
+  return (
+    <div class="relative group">
+      <button
+        class="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat"
+        onClick={handleClick}
+      >
+        <span>Logout</span>
+      </button>
+    </div>
   );
 };
 

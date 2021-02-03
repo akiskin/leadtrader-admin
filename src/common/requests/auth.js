@@ -19,7 +19,7 @@ export const checkIfLoggedIn = async () => {
 
 export const login = async (username, password) => {
   try {
-    const response = await apiClient.post("/login", {
+    const response = await apiClient.post("/adm/login", {
       email: username,
       password: password,
     });
