@@ -15,6 +15,20 @@ const routes = [
     exact: true,
     main: lazy(() => import("pages/Products")),
   },
+  {
+    path: "/leads",
+    exact: true,
+    main: lazy(() => import("pages/Leads")),
+  },
+  {
+    path: "/clients",
+    exact: true,
+    main: lazy(() => import("pages/Clients")),
+  },
+  {
+    path: "/clients/:id",
+    main: lazy(() => import("pages/Client")),
+  },
 ];
 
 export default routes;

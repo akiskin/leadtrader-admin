@@ -74,38 +74,41 @@ const PrivateRoute = ({ children, ...rest }) => {
     <>
       <nav
         aria-label="primary"
-        class="relative z-20  flex-grow  pb-0 flex flex-row"
+        className="relative z-20  flex-grow  pb-0 flex flex-row"
       >
-        <div class="relative group">
-          <button class="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat">
+        <div className="relative group">
+          <button className="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat">
             <Link to={"/"}>Dashboard</Link>
           </button>
         </div>
-        <div class="relative group">
-          <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
+        <div className="relative group">
+          <button className="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
             <span>Catalogs</span>
           </button>
-          <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
-            <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
-              <div class="grid grid-cols-1 gap-4">
+          <div className="absolute z-10 hidden bg-grey-200 group-hover:block">
+            <div className="px-2 pt-2 pb-4 bg-white shadow-lg">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <Link to={"/products"}>Products (read-only)</Link>
                 </div>
                 <div>
-                  <Link to={"/products"}>Products</Link>
+                  <Link to={"/leads"}>Leads</Link>
+                </div>
+                <div>
+                  <Link to={"/clients"}>Clients</Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="relative group">
-          <button class="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
+        <div className="relative group">
+          <button className="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
             <span>Second Dropdown</span>
           </button>
-          <div class="absolute z-10 hidden bg-grey-200 group-hover:block">
-            <div class="px-2 pt-2 pb-4 bg-white shadow-lg">
-              <div class="grid grid-cols-1 gap-4">
+          <div className="absolute z-10 hidden bg-grey-200 group-hover:block">
+            <div className="px-2 pt-2 pb-4 bg-white shadow-lg">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <Link to={"/products"}>Products</Link>
                 </div>
@@ -146,9 +149,9 @@ export const Logout = () => {
   };
 
   return (
-    <div class="relative group">
+    <div className="relative group">
       <button
-        class="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat"
+        className="hover:bg-purple-400 items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 focus:outline-none font-montserrat"
         onClick={handleClick}
       >
         <span>Logout</span>
