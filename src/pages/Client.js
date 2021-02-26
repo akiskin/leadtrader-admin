@@ -21,11 +21,13 @@ const ClientsPage = () => {
     }
   };
 
+  const [isLoadingTats, setIsLoadingTats] = useState(false);
   const [after, setAfter] = useState("");
   const [before, setBefore] = useState("");
   const [tats, setTats] = useState({});
 
   const getClientTransactionsAndBalances = async (client_id, after, before) => {
+    setIsLoadingTats(true);
     const [success, data] = await getClientTotalsAndTunrovers(
       client_id,
       after,
@@ -34,6 +36,7 @@ const ClientsPage = () => {
     if (success) {
       setTats(data);
     }
+    setIsLoadingTats(false);
   };
 
   const updateAllData = () => {
@@ -78,7 +81,11 @@ const ClientsPage = () => {
             className="border border-gray-400 rounded"
           ></input>
         </div>
-        {Object.keys(tats).length > 0 ? <Tats data={tats} /> : null}
+        {isLoadingTats ? (
+          <LoadingSpinner />
+        ) : Object.keys(tats).length > 0 ? (
+          <Tats data={tats} />
+        ) : null}
       </div>
 
       <div className="mt-4 border-t-2">
