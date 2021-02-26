@@ -29,6 +29,11 @@ const routes = [
     path: "/clients/:id",
     main: lazy(() => import("pages/Client")),
   },
+  {
+    path: "/tools",
+    exact: true,
+    main: lazy(() => import("pages/Tools")),
+  },
 ];
 
 export default routes;

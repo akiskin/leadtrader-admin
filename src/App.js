@@ -104,13 +104,13 @@ const PrivateRoute = ({ children, ...rest }) => {
 
         <div className="relative group">
           <button className="items-center px-4 py-4 text-base font-bold text-left uppercase bg-transparent rounded-lg w-full inline mt-0 ml-4 focus:outline-none font-montserrat">
-            <span>Second Dropdown</span>
+            <span>Tech</span>
           </button>
           <div className="absolute z-10 hidden bg-grey-200 group-hover:block">
             <div className="px-2 pt-2 pb-4 bg-white shadow-lg">
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <Link to={"/products"}>Products</Link>
+                  <Link to={"/tools"}>Tools</Link>
                 </div>
               </div>
             </div>
