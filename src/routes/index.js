@@ -21,6 +21,10 @@ const routes = [
     main: lazy(() => import("pages/Leads")),
   },
   {
+    path: "/leads/:id",
+    main: lazy(() => import("pages/Lead")),
+  },
+  {
     path: "/clients",
     exact: true,
     main: lazy(() => import("pages/Clients")),
