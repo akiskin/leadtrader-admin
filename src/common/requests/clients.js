@@ -53,3 +53,18 @@ export const getClientTotalsAndTunrovers = async (
     return [false, e.toString()];
   }
 };
+
+export const updateClient = async (client_id, data) => {
+  try {
+    const response = await apiClient.put(`/adm/clients/${client_id}`, data);
+
+    if (response.status === 200) {
+      return [true, response.data];
+    } else {
+      return [false, response.status];
+    }
+    //TODO 401?
+  } catch (e) {
+    return [false, e.toString()];
+  }
+};

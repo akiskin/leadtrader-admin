@@ -3,6 +3,7 @@ import { readableType } from "common/consts/transactions";
 import {
   getClientDashboard,
   getClientTotalsAndTunrovers,
+  updateClient,
 } from "common/requests/clients";
 import { createTransaction } from "common/requests/transactions";
 import { useState, useEffect } from "react";
@@ -53,9 +54,17 @@ const ClientsPage = () => {
     <div className="flex flex-col">
       <div className="my-1">
         Current balance:{" "}
-        {"currentBalance" in dashboardData
-          ? dashboardData.currentBalance
-          : null}
+        <span className="font-bold">
+          {"currentBalance" in dashboardData
+            ? dashboardData.currentBalance
+            : null}
+        </span>
+      </div>
+      <div className="my-1">
+        <BrokerFlowKey
+          bfKey={dashboardData.BrokerFlowKey ?? ""}
+          clientId={id}
+        />
       </div>
       <div className="my-1">
         <AddWithdrawMoney
@@ -185,6 +194,44 @@ const Tats = (props) => {
           </tbody>
         </table>
       </div>
+    </>
+  );
+};
+
+const BrokerFlowKey = (props) => {
+  const [bfKey, setBfKey] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setBfKey(props.bfKey);
+  }, [props.bfKey]);
+
+  const onSave = async () => {
+    setLoading(true);
+
+    await updateClient(props.clientId, { brokerflow_key: bfKey });
+
+    setLoading(false);
+  };
+
+  return (
+    <>
+      Brokerflow Key:{" "}
+      <input
+        type="text"
+        value={bfKey}
+        onChange={(e) => setBfKey(e.target.value)}
+        className="w-72 border border-gray-400 rounded"
+      ></input>{" "}
+      →{" "}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-20 border rounded border-purple-300 px-2 hover:bg-purple-300"
+        onClick={onSave}
+      >
+        {loading ? <LoadingSpinner /> : "Save"}
+      </button>
     </>
   );
 };

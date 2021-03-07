@@ -25,6 +25,7 @@ const ClientsPage = () => {
             <th className="text-left font-bold">Status</th>
             <th className="text-left font-bold">Name</th>
             <th className="text-left font-bold">Rego</th>
+            <th className="text-left font-bold">BrokerFlow Key</th>
             <th className="text-right font-bold">Balance</th>
             <th className="text-left font-bold pl-2">Actions</th>
           </tr>
@@ -35,11 +36,12 @@ const ClientsPage = () => {
               <td>{client.status}</td>
               <td>{client.name}</td>
               <td>{client.reg_number}</td>
+              <td>{client.brokerflow_key}</td>
               <td className="text-right">{client.balance}</td>
               <td className="pl-2">
                 <Link to={`/clients/${client.id}`}>
                   <span className="underline">
-                    See transactions, Add/withdraw money
+                    Edit, See transactions, Add/withdraw money
                   </span>
                 </Link>
               </td>
