@@ -27,3 +27,20 @@ export const LEAD_STATUS = {
 
 export const readableStatus = (status) =>
   status in LEAD_STATUS ? LEAD_STATUS[status].presentation : status;
+
+export const ACTIVITY_LOG_ACTION = {
+  10: {
+    presentation: "Get Raw data",
+  },
+  20: {
+    presentation: "Sell",
+  },
+  30: {
+    presentation: "Deliver",
+  },
+};
+
+export const readableAction = (status) =>
+  status in ACTIVITY_LOG_ACTION
+    ? ACTIVITY_LOG_ACTION[status].presentation
+    : status;

@@ -1,5 +1,5 @@
 import LoadingSpinner from "common/components/LoadingSpinner";
-import { readableStatus } from "common/consts/leads";
+import { readableStatus, readableAction } from "common/consts/leads";
 import { inspectLead, resendLead } from "common/requests/leads";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -29,12 +29,13 @@ const Lead = () => {
       <div className="flex flex-row">Lead: {id}</div>
       <div className="flex flex-row">
         <div>{leadData ? <RawLeadData data={leadData.raw} /> : null}</div>
-        <div className="flex flex-col ml-2">
+        <div className="flex flex-col ml-2 space-y-2">
           {leadData ? (
             <DetailedData
               lead={leadData.raw}
               sellCampaign={leadData.sellCampaign}
               transaction={leadData.transaction}
+              activities={leadData.activities}
             />
           ) : null}
         </div>
@@ -65,6 +66,7 @@ const DetailedData = (props) => (
     {props.transaction ? (
       <BuyerInfo transaction={props.transaction} leadId={props.lead.id} />
     ) : null}
+    <ActivityLog data={props.activities} />
   </>
 );
 
@@ -114,5 +116,42 @@ const ResendButton = (props) => {
     </button>
   );
 };
+
+const ActivityLog = (props) => (
+  <>
+    <div>
+      <div className="font-semibold">
+        Chronological list of actions performed
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th className="font-semibold text-left">Date</th>
+            <th className="font-semibold text-left pl-2">Action</th>
+            <th className="font-semibold text-left pl-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.data.map((entry) => (
+            <tr key={entry.id}>
+              <td>{entry.created_at}</td>
+              <td className="pl-2">{readableAction(entry.action)}</td>
+              <td className="pl-2">
+                <div
+                  title={JSON.stringify(entry.message)}
+                  className="cursor-pointer"
+                >
+                  {"status" in entry.message
+                    ? entry.message.status
+                    : "(hover over)"}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
+);
 
 export default Lead;
