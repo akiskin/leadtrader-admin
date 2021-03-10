@@ -116,7 +116,7 @@ const AddWithdrawMoney = (props) => {
     e.preventDefault();
     setLoading(true);
 
-    const [success, data] = await createTransaction(
+    const [success] = await createTransaction(
       props.clientId,
       amount,
       reference
