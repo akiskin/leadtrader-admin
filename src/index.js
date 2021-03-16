@@ -12,15 +12,16 @@ import thunk from "redux-thunk";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 
-Sentry.init({
-  dsn:
-    "https://7f8b939774fc4412a42841c06e9c54bc@o511607.ingest.sentry.io/5679061",
-  integrations: [new Integrations.BrowserTracing()],
+if (process.env.REACT_APP_SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    integrations: [new Integrations.BrowserTracing()],
 
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
+  });
+}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
