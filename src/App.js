@@ -112,6 +112,11 @@ const PrivateRoute = ({ children, ...rest }) => {
                 <div>
                   <Link to={"/tools"}>Tools</Link>
                 </div>
+                <div>
+                  <Link to={"/tools/active-buy-campaigns"}>
+                    Active Buy Campaigns
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

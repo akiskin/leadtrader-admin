@@ -13,3 +13,17 @@ export const releaseLock = async () => {
     return [false, e.toString()];
   }
 };
+
+export const activeBuyCampaigns = async () => {
+  try {
+    const response = await apiClient.get(`/adm/tools/active-buy-campaigns`);
+
+    if (response.status === 200) {
+      return [true, response.data.data]; //laravel object
+    } else {
+      return [false, response.status];
+    }
+  } catch (e) {
+    return [false, e.toString()];
+  }
+};

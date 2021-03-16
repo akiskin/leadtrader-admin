@@ -36,7 +36,12 @@ const routes = [
   {
     path: "/tools",
     exact: true,
-    main: lazy(() => import("pages/Tools")),
+    main: lazy(() => import("pages/tools/Tools")),
+  },
+  {
+    path: "/tools/active-buy-campaigns",
+    exact: true,
+    main: lazy(() => import("pages/tools/ActiveBuyCampaigns")),
   },
 ];
 
