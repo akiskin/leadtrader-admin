@@ -67,6 +67,9 @@ const DetailedData = (props) => (
       <BuyerInfo transaction={props.transaction} leadId={props.lead.id} />
     ) : null}
     <ActivityLog data={props.activities} />
+    {props.lead.status === 200 ? (
+      <PurchaseDetails data={props.activities} />
+    ) : null}
   </>
 );
 
@@ -152,6 +155,19 @@ const ActivityLog = (props) => (
       </table>
     </div>
   </>
+);
+
+const PurchaseDetails = (props) => (
+  <div>
+    <div className="font-semibold">Buy Rules at the moment of purchase</div>
+    {props.data
+      .filter((e) => e.action === 20)
+      .map((e) => (
+        <div key={e.id} className="bg-gray-200 text-xs py-2 px-2">
+          <pre>{JSON.stringify(e.message.rules, null, 2)}</pre>
+        </div>
+      ))}
+  </div>
 );
 
 export default Lead;
